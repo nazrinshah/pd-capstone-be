@@ -1,0 +1,36 @@
+# Local environment
+.DS_Store
+.env
+.env.worker
+.idea/
+.netrc
+.config.server.yaml
+.vscode
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+vendor/
+
+# Public keys
+resources/jwt/keys/*
+
+# Binary
+joker
+http
+orderworker
+
+#Scripts i/o
+cmd/scripts/input/
+cmd/scripts/output/
