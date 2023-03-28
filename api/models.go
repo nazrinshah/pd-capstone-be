@@ -1,5 +1,16 @@
 package api
 
+type Error string
+
+const (
+	ErrVendorNotFound Error = "vendor not found"
+	ErrInvalidParams  Error = "invalid params"
+)
+
+func (e Error) Error() string {
+	return string(e)
+}
+
 type VendorType int
 
 const (

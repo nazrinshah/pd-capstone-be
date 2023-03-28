@@ -8,7 +8,18 @@ import (
 )
 
 func GetDrinks(c *gin.Context) {
-	// given a vendor id, get a drinks vendor
+	// given a vendor id, get drinks from a drinks vendor
+	idStr := c.Param("id")
+
+	if idStr == "" {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": ErrInvalidParams.Error()})
+	}
+
+	id, _ := strconv.Atoi(idStr)
+
+	drinks, _ := getDrinks(uint64(id))
+
+	c.IndentedJSON(http.StatusOK, drinks)
 }
 
 // GetVendors responds with the list of all vendors as JSON.
@@ -19,18 +30,15 @@ func GetVendors(c *gin.Context) {
 // GetVendorsID locates the vendor whose ID value matches the id
 // parameter sent by the client, then returns that vendor as a response.
 func GetVendorByID(c *gin.Context) {
-	idStr, _ := strconv.Atoi(c.Param("id"))
-	id := uint64(idStr)
+	id, _ := strconv.Atoi(c.Param("id"))
 
-	// Loop over the list of vendors, looking for
-	// a vendor whose ID value matches the parameter.
-	for _, a := range Vendors {
-		if a.Id == id {
-			c.IndentedJSON(http.StatusOK, a)
-			return
-		}
+	v, err := getVendorById(uint64(id))
+
+	if err != nil {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err.Error()})
+	} else {
+		c.IndentedJSON(http.StatusOK, v)
 	}
-	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "vendor not found"})
 }
 
 // AddVendor adds a new vendor from JSON received in the request body.
