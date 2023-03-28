@@ -23,13 +23,14 @@ type Vendor struct {
 }
 
 type Dish struct {
-	Id          uint64  `json:"id"`
-	VendorId    uint64  `json:"vendor_id"`
-	Name        string  `json:"name"`
-	Status      int     `json:"status"`
-	Price       float64 `json:"price"`
-	Description string  `json:"description"`
-	Currency    string  `json:"currency"`
+	Id          uint64     `json:"id"`
+	VendorId    uint64     `json:"vendor_id"`
+	Name        string     `json:"name"`
+	Status      DishStatus `json:"status"`
+	Price       float64    `json:"price"`
+	Description string     `json:"description"`
+	Currency    string     `json:"currency"`
+	ImageName   string     `json:"image_name"`
 }
 
 // Vendors slice to seed record Vendor data.
@@ -42,11 +43,30 @@ var Vendors = []Vendor{
 
 var Dishes = []Dish{
 	{
-		Id:          1,
-		Name:        "",
-		Status:      0,
-		Price:       0,
-		Description: "",
-		Currency:    "",
+		Id:        1,
+		VendorId:  2,
+		Name:      "Pearl Milk Tea",
+		Status:    DISH_AVAILABLE,
+		Price:     5.30,
+		Currency:  "SGD",
+		ImageName: "fp-drink-gong-cha-pearl-milk-tea",
+	},
+	{
+		Id:        2,
+		VendorId:  2,
+		Name:      "Earl Grey Milk Tea",
+		Status:    DISH_AVAILABLE,
+		Price:     7.30,
+		Currency:  "SGD",
+		ImageName: "fp-drink-gong-cha-pearl-milk-tea",
+	},
+	{
+		Id:        3,
+		VendorId:  2,
+		Name:      "Mango Milk Tea",
+		Status:    DISH_AVAILABLE,
+		Price:     6.30,
+		Currency:  "SGD",
+		ImageName: "fp-drink-gong-cha-pearl-milk-tea",
 	},
 }
