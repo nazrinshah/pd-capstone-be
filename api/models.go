@@ -1,5 +1,12 @@
 package api
 
+type VendorType int
+
+const (
+	VENDORTYPE_FOOD VendorType = iota
+	VENDORTYPE_DRINKS
+)
+
 type VendorStatus int
 
 const (
@@ -18,6 +25,7 @@ const (
 type Vendor struct {
 	Id            uint64       `json:"id"`
 	Name          string       `json:"name"`
+	Type          VendorType   `json:"vendor_type"`
 	Status        VendorStatus `json:"status"`
 	Opening_Hours string       `json:"opening_hours"` // hh:mm-hh:mm format, assume open 7 days a week
 }
@@ -35,10 +43,8 @@ type Dish struct {
 
 // Vendors slice to seed record Vendor data.
 var Vendors = []Vendor{
-	{Id: 1, Name: "Fish Soup", Status: VENDOR_OPEN, Opening_Hours: "10:00-21:00"},
-	{Id: 2, Name: "Koi", Status: VENDOR_OPEN, Opening_Hours: "07:00-20:00"},
-	{Id: 3, Name: "Japanese Food", Status: VENDOR_OPEN, Opening_Hours: "11:00-20:30"},
-	{Id: 4, Name: "Korean Food", Status: VENDOR_OPEN, Opening_Hours: "11:30-21:00"},
+	{Id: 1, Name: "Fish Soup", Status: VENDOR_OPEN, Opening_Hours: "10:00-21:00", Type: VENDORTYPE_FOOD},
+	{Id: 2, Name: "Koi", Status: VENDOR_OPEN, Opening_Hours: "07:00-20:00", Type: VENDORTYPE_DRINKS},
 }
 
 var Dishes = []Dish{

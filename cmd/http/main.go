@@ -8,6 +8,8 @@ import (
 func main() {
 	router := gin.Default()
 
+	router.GET("/getDrinks/:id", api.GetDrinks)
+
 	router.GET("/vendors", api.GetVendors)
 	router.GET("/vendors/:id", api.GetVendorByID)
 

@@ -7,6 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func GetDrinks(c *gin.Context) {
+	// given a vendor id, get a drinks vendor
+}
+
 // GetVendors responds with the list of all vendors as JSON.
 func GetVendors(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, Vendors)
