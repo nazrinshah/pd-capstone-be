@@ -1,11 +1,19 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
+
+func CreateOrder(c *gin.Context) {
+	var input interface{}
+
+	c.BindJSON(&input)
+	fmt.Println(input)
+}
 
 func GetDrinks(c *gin.Context) {
 	// given a vendor id, get drinks from a drinks vendor
