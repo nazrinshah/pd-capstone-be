@@ -8,6 +8,19 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+const (
+	VENDOR_TABLE = "vendor"
+	DB_SCHEMA    = "restaurant"
+)
+
+type Vendor struct {
+	Vendor_ID     int    `json:"vendor_id"`
+	Vendor_Name   string `json:"vendor_name"`
+	Status        string `json:"status"`
+	Opening_Hours string `json:"opening_hours"` // hh:mm-hh:mm format, assume open 7 days a week
+	//Dish_Name     []Dish
+}
+
 var DB *sql.DB
 
 func InitDB() {
@@ -28,16 +41,19 @@ func CloseDB() {
 	DB.Close()
 }
 
-func InsertDB() {
-	insert, err := DB.Query("INSERT INTO restaurant.vendor VALUES ( 5, 'vendor_name', 'test', '10:00-15:00')")
+func CreateVendor(v Vendor) {
+	// insert sql statement
+	query := fmt.Sprintf("INSERT INTO `%s` (`vendor_name`, `status`, `opening_hours`) VALUES(?, ?, ?)", VENDOR_TABLE)
+
+	fmt.Println("query createvendor:", query)
+	_, err := DB.Exec(query, v.Vendor_Name, v.Status, v.Opening_Hours)
 	if err != nil {
 		panic(err.Error())
 	}
-	defer insert.Close()
 }
 
 func GetDB() {
-	rows, err := DB.Query("SELECT vendor_id, vendor_name, status, opening_hours FROM restaurant.vendor")
+	rows, err := DB.Query("SELECT vendor_id, vendor_name, status, opening_hours FROM %s.%s", DB_SCHEMA, VENDOR_TABLE)
 	if err != nil {
 		log.Fatal(err)
 	}
