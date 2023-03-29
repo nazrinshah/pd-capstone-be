@@ -33,11 +33,11 @@ const (
 )
 
 type Vendor struct {
-	Id            uint64       `json:"id"`
-	Name          string       `json:"name"`
-	Type          VendorType   `json:"vendor_type"`
-	Status        VendorStatus `json:"status"`
-	Opening_Hours string       `json:"opening_hours"` // hh:mm-hh:mm format, assume open 7 days a week
+	Id           uint64       `json:"id"`
+	Name         string       `json:"name"`
+	Type         VendorType   `json:"vendor_type"`
+	Status       VendorStatus `json:"status"`
+	OpeningHours string       `json:"opening_hours"` // hh:mm-hh:mm format, assume open 7 days a week
 }
 
 type Dish struct {
@@ -78,8 +78,8 @@ type Order struct {
 
 // Vendors slice to seed record Vendor data.
 var Vendors = []Vendor{
-	{Id: 1, Name: "Fish Soup", Status: VENDOR_OPEN, Opening_Hours: "10:00-21:00", Type: VENDORTYPE_FOOD},
-	{Id: 2, Name: "Koi", Status: VENDOR_OPEN, Opening_Hours: "07:00-20:00", Type: VENDORTYPE_DRINKS},
+	{Id: 1, Name: "Fish Soup", Status: VENDOR_OPEN, OpeningHours: "10:00-21:00", Type: VENDORTYPE_FOOD},
+	{Id: 2, Name: "Koi", Status: VENDOR_OPEN, OpeningHours: "07:00-20:00", Type: VENDORTYPE_DRINKS},
 }
 
 var Dishes = []Dish{
