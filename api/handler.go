@@ -7,8 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) Init() {
-	// init db instance here
+func (h *Handler) Init(useDB bool) {
+	if useDB {
+		// init db instance here
+	}
 }
 
 func (h *Handler) CreateOrder(c *gin.Context) {
