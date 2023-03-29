@@ -17,7 +17,7 @@ const (
 	VENDORTYPE_DRINKS
 )
 
-type VendorStatus int
+type VendorStatus int32
 
 const (
 	VENDOR_CLOSED VendorStatus = iota
@@ -25,7 +25,7 @@ const (
 	VENDOR_BANNED
 )
 
-type DishStatus int
+type DishStatus int32
 
 const (
 	DISH_UNAVAILABLE DishStatus = iota
@@ -49,6 +49,31 @@ type Dish struct {
 	Description string     `json:"description"`
 	Currency    string     `json:"currency"`
 	ImageName   string     `json:"image_name"`
+}
+
+type OrderItem struct {
+	Id       uint64  `json:"id"`
+	Name     string  `json:"name"`
+	Price    float64 `json:"price"`
+	Quantity int32   `json:"quantity"`
+	Remarks  string  `json:"remarks"`
+}
+
+type OrderStatus int32
+
+const (
+	ORDER_PROCESSING = iota
+	ORDER_COOKING
+	ORDER_DELIVERING
+	ORDER_COMPLETED
+	ORDER_CANCELLED
+)
+
+type Order struct {
+	Items       []Order `json:"items"`
+	Subtotal    float64 `json:"subtotal"`
+	PlatformFee float64 `json:"plaform_fee"`
+	DeliveryFee float64 `json:"delivery_fee"`
 }
 
 // Vendors slice to seed record Vendor data.
