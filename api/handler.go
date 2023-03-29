@@ -21,9 +21,9 @@ func (h *Handler) CreateOrder(c *gin.Context) {
 		return
 	}
 
-	h.createOrder(newOrder)
-	
-	c.IndentedJSON(http.StatusOK, newOrder)
+	createdOrder, _ := h.createOrder(newOrder)
+
+	c.IndentedJSON(http.StatusOK, createdOrder)
 }
 
 func (h *Handler) GetDrinks(c *gin.Context) {
