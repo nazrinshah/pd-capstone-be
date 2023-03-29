@@ -6,16 +6,18 @@ import (
 )
 
 func main() {
+	h := api.Handler{}
+
 	router := gin.Default()
 
-	router.GET("/getdrinks/:id", api.GetDrinks)
+	router.GET("/getdrinks/:id", h.GetDrinks)
 
-	router.POST("createorder", api.CreateOrder)
+	router.POST("createorder", h.CreateOrder)
 
-	router.GET("/vendors", api.GetVendors)
-	router.GET("/vendors/:id", api.GetVendorByID)
+	router.GET("/vendors", h.GetVendors)
+	router.GET("/vendors/:id", h.GetVendorByID)
 
-	router.POST("/addvendor", api.AddVendor)
+	router.POST("/addvendor", h.AddVendor)
 
 	router.Run("localhost:8080")
 }
