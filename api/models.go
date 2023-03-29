@@ -1,15 +1,10 @@
 package api
 
 type Handler struct {
-	// add DB code here
+	// add DB ptr here
 }
 
 type Error string
-
-const (
-	ErrVendorNotFound Error = "vendor not found"
-	ErrInvalidParams  Error = "invalid params"
-)
 
 func (e Error) Error() string {
 	return string(e)
@@ -68,7 +63,7 @@ var Dishes = []Dish{
 		VendorId:  2,
 		Name:      "Pearl Milk Tea",
 		Status:    DISH_AVAILABLE,
-		Price:     5.30,
+		Price:     4.30,
 		Currency:  "SGD",
 		ImageName: "fp-drink-gong-cha-pearl-milk-tea",
 	},

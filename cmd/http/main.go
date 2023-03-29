@@ -7,10 +7,12 @@ import (
 
 func main() {
 	h := api.Handler{}
+	h.Init()
 
 	router := gin.Default()
 
-	router.GET("/getdrinks/:id", h.GetDrinks)
+	router.GET("/drinks/:id", h.GetDrinks)
+	router.GET("/dish/:id", h.GetDishById)
 
 	router.POST("createorder", h.CreateOrder)
 
