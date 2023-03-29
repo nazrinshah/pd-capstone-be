@@ -52,11 +52,12 @@ type Dish struct {
 }
 
 type OrderItem struct {
-	Id       uint64  `json:"id"`
-	Name     string  `json:"name"`
-	Price    float64 `json:"price"`
-	Quantity int32   `json:"quantity"`
-	Remarks  string  `json:"remarks"`
+	Id        uint64  `json:"id"`
+	Name      string  `json:"name"`
+	Price     float64 `json:"price"`
+	Quantity  int32   `json:"quantity"`
+	Remarks   string  `json:"remarks"`
+	ImageName string  `json:"image_name"`
 }
 
 type OrderStatus int32
@@ -70,10 +71,12 @@ const (
 )
 
 type Order struct {
-	Items       []Order `json:"items"`
-	Subtotal    float64 `json:"subtotal"`
-	PlatformFee float64 `json:"plaform_fee"`
-	DeliveryFee float64 `json:"delivery_fee"`
+	Id          uint64      `json:"id"`
+	OrderStatus OrderStatus `json:"status"`
+	Items       []OrderItem `json:"items"`
+	Subtotal    float64     `json:"subtotal"`
+	PlatformFee float64     `json:"plaform_fee"`
+	DeliveryFee float64     `json:"delivery_fee"`
 }
 
 // Vendors slice to seed record Vendor data.
@@ -114,3 +117,5 @@ var Dishes = []Dish{
 		ImageName:   "fp-drink-gong-cha-strawberry-milk-tea",
 	},
 }
+
+var Orders = []Order{}

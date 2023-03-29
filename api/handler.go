@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -13,10 +12,18 @@ func (h *Handler) Init() {
 }
 
 func (h *Handler) CreateOrder(c *gin.Context) {
-	var input interface{}
+	var newOrder Order
 
-	c.BindJSON(&input)
-	fmt.Println(input)
+	err := c.BindJSON(&newOrder)
+
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": ErrInvalidParams.Error()})
+		return
+	}
+
+	h.createOrder(newOrder)
+	
+	c.IndentedJSON(http.StatusOK, newOrder)
 }
 
 func (h *Handler) GetDrinks(c *gin.Context) {

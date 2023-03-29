@@ -1,5 +1,7 @@
 package api
 
+import "fmt"
+
 func (h *Handler) getVendorById(id uint64) (Vendor, error) {
 	for _, v := range Vendors {
 		if v.Id == id {
@@ -22,4 +24,12 @@ func (h *Handler) getDishById(id uint64) (Dish, error) {
 	}
 
 	return Dish{}, ErrDishNotFound
+}
+
+func (h *Handler) createOrder(order Order) {
+	order.Id = uint64(len(Orders) + 1)
+	order.OrderStatus = ORDER_PROCESSING
+	Orders = append(Orders, order)
+
+	fmt.Println(fmt.Sprintf("%+v", Orders))
 }
