@@ -7,8 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) Init() {
-	// init db instance here
+func (h *Handler) Init(useDB bool) {
+	if useDB {
+		// init db instance here
+	}
 }
 
 func (h *Handler) CreateOrder(c *gin.Context) {
@@ -21,9 +23,9 @@ func (h *Handler) CreateOrder(c *gin.Context) {
 		return
 	}
 
-	h.createOrder(newOrder)
-	
-	c.IndentedJSON(http.StatusOK, newOrder)
+	createdOrder, _ := h.createOrder(newOrder)
+
+	c.IndentedJSON(http.StatusOK, createdOrder)
 }
 
 func (h *Handler) GetDrinks(c *gin.Context) {
