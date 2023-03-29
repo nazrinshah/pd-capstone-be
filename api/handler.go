@@ -8,6 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func (h *Handler) Init() {
+	// init db instance here
+}
+
 func (h *Handler) CreateOrder(c *gin.Context) {
 	var input interface{}
 
@@ -30,6 +34,18 @@ func (h *Handler) GetDrinks(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, drinks)
 }
 
+func (h *Handler) GetDishById(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	v, err := h.getDishById(uint64(id))
+
+	if err != nil {
+		c.IndentedJSON(http.StatusOK, gin.H{"message": err.Error()})
+	} else {
+		c.IndentedJSON(http.StatusOK, v)
+	}
+}
+
 // GetVendors responds with the list of all vendors as JSON.
 func (h *Handler) GetVendors(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, Vendors)
@@ -43,7 +59,7 @@ func (h *Handler) GetVendorByID(c *gin.Context) {
 	v, err := h.getVendorById(uint64(id))
 
 	if err != nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err.Error()})
+		c.IndentedJSON(http.StatusOK, gin.H{"message": err.Error()})
 	} else {
 		c.IndentedJSON(http.StatusOK, v)
 	}

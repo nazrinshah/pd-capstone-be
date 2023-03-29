@@ -13,3 +13,13 @@ func (h *Handler) getVendorById(id uint64) (Vendor, error) {
 func (h *Handler) getDrinks(id uint64) ([]Dish, error) {
 	return Dishes, nil
 }
+
+func (h *Handler) getDishById(id uint64) (Dish, error) {
+	for _, d := range Dishes {
+		if d.Id == id {
+			return d, nil
+		}
+	}
+
+	return Dish{}, ErrDishNotFound
+}
