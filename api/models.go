@@ -1,5 +1,9 @@
 package api
 
+type Handler struct {
+	// add DB code here
+}
+
 type Error string
 
 const (
