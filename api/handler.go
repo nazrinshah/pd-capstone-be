@@ -1,16 +1,38 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) Init(useDB bool) {
+type Handler struct {
+	// add DB ptr here
+	db    DB
+	useDB bool
+}
+
+func (h *Handler) Init(useDB bool) error {
+	h.useDB = useDB
+	
 	if useDB {
 		// init db instance here
+		err := h.db.Init()
+
+		if err != nil {
+			return err
+		}
 	}
+
+	fmt.Println("handler initiated successfully")
+
+	return nil
+}
+
+func (h *Handler) Shutdown() {
+	h.db.Close()
 }
 
 func (h *Handler) CreateOrder(c *gin.Context) {

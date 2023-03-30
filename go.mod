@@ -1,4 +1,4 @@
-module pd-capstone-be
+module github.com/nazrinshah/pd-capstone-be
 
 go 1.19
 

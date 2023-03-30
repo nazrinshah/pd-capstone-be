@@ -1,9 +1,5 @@
 package api
 
-type Handler struct {
-	// add DB ptr here
-}
-
 type Error string
 
 func (e Error) Error() string {

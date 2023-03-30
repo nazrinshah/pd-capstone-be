@@ -3,7 +3,8 @@ package main
 import (
 	"flag"
 	"github.com/gin-gonic/gin"
-	"pd-capstone-be/api"
+	"github.com/nazrinshah/pd-capstone-be/api"
+	"log"
 )
 
 var useDB = flag.Bool("use-db", false, "set to true if want to use MySQL db")
@@ -12,7 +13,11 @@ func main() {
 	flag.Parse()
 
 	h := api.Handler{}
-	h.Init(*useDB)
+	err := h.Init(*useDB)
+
+	if err != nil {
+		log.Fatalf("error init db: %+v", err)
+	}
 
 	router := gin.Default()
 
