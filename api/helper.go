@@ -17,6 +17,10 @@ func (h *Handler) getDrinks(id uint64) ([]Dish, error) {
 }
 
 func (h *Handler) getDishById(id uint64) (Dish, error) {
+	if h.useDB {
+		return h.db.RetrieveDishById(id)
+	}
+
 	for _, d := range Dishes {
 		if d.Id == id {
 			return d, nil

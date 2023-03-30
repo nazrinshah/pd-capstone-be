@@ -20,8 +20,27 @@ type DB struct {
 	db *sql.DB
 }
 
+func (d *DB) RetrieveDishById(id uint64) (Dish, error) {
+	res := Dish{}
+	query := fmt.Sprintf("SELECT * FROM %s WHERE %d = ?", TABLE_DISH, id)
+	err := d.db.QueryRow(query, id).Scan(&res.Id, &res.VendorId, &res.Name, &res.Status, &res.Price, &res.Description, &res.Currency, &res.ImageName)
+
+	if err != nil {
+		fmt.Println("Error in RetrieveDishById: ", err)
+	}
+
+	return res, err
+}
+
 func (d *DB) Init() error {
-	d.db, err := sql.Open("sql", fmt.Sprintf("%s:%s@tcp(%s:3066)/%s", DB_USERNAME, DB_PASSWORD, DB_HOST, DB_SCHEMA))
+	var err error
+	d.db, err = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_SCHEMA))
 
 	return err
+}
+
+func (d *DB) Close() {
+	if d.db != nil {
+		d.db.Close()
+	}
 }
