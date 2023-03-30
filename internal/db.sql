@@ -15,7 +15,7 @@ CREATE TABLE dish_tab (
 CREATE TABLE order_tab (
                            id MEDIUMINT NOT NULL AUTO_INCREMENT,
                            orderstatus MEDIUMINT NOT NULL,
-                           items CHAR(255) NOT NULL,
+                           items VARCHAR(1024) NOT NULL,
                            subtotal FLOAT(7,2) NOT NULL,
      platformfee FLOAT(7,2) NOT NULL,
      deliveryfee FLOAT(7,2) NOT NULL,
