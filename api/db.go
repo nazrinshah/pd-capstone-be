@@ -2,6 +2,7 @@ package api
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -18,6 +19,20 @@ const (
 
 type DB struct {
 	db *sql.DB
+}
+
+func (d *DB) CreateOrder(order Order) (Order, error) {
+
+	itemStr, _ := json.Marshal(order.Items)
+	sql := fmt.Sprintf("INSERT INTO %s(orderstatus, items, subtotal, platformfee, deliveryfee) VALUES (%d, '%s', %.2f, %.2f, %.2f)", TABLE_ORDER, order.OrderStatus, itemStr, order.Subtotal, order.PlatformFee, order.DeliveryFee)
+	res, err := d.db.Exec(sql)
+
+	fmt.Println(fmt.Sprintf("%+v", res))
+
+	i, err := res.LastInsertId()
+	order.Id = uint64(i)
+
+	return order, err
 }
 
 func (d *DB) RetrieveDishes() ([]Dish, error) {
