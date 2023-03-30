@@ -20,6 +20,28 @@ type DB struct {
 	db *sql.DB
 }
 
+func (d *DB) RetrieveDishes() ([]Dish, error) {
+	res := []Dish{}
+
+	query := fmt.Sprintf("SELECT * FROM %s", TABLE_DISH)
+
+	rows, err := d.db.Query(query)
+	defer rows.Close()
+
+	for rows.Next() {
+		temp := Dish{}
+		err = rows.Scan(&temp.Id, &temp.VendorId, &temp.Name, &temp.Status, &temp.Price, &temp.Description, &temp.Currency, &temp.ImageName)
+
+		if err != nil {
+			break
+		}
+
+		res = append(res, temp)
+	}
+
+	return res, err
+}
+
 func (d *DB) RetrieveDishById(id uint64) (Dish, error) {
 	res := Dish{}
 	query := fmt.Sprintf("SELECT * FROM %s WHERE %d = ?", TABLE_DISH, id)

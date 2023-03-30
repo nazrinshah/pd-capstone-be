@@ -13,6 +13,10 @@ func (h *Handler) getVendorById(id uint64) (Vendor, error) {
 }
 
 func (h *Handler) getDrinks(id uint64) ([]Dish, error) {
+
+	if h.useDB {
+		return h.db.RetrieveDishes()
+	}
 	return Dishes, nil
 }
 
