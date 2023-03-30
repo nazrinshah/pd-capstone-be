@@ -59,7 +59,7 @@ func (d *DB) RetrieveDishes() ([]Dish, error) {
 
 func (d *DB) RetrieveDishById(id uint64) (Dish, error) {
 	res := Dish{}
-	query := fmt.Sprintf("SELECT * FROM %s WHERE %d = ?", TABLE_DISH, id)
+	query := fmt.Sprintf("SELECT * FROM %s WHERE id = ?", TABLE_DISH)
 	err := d.db.QueryRow(query, id).Scan(&res.Id, &res.VendorId, &res.Name, &res.Status, &res.Price, &res.Description, &res.Currency, &res.ImageName)
 
 	if err != nil {
